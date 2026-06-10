@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Block direct access to internal files
+<FilesMatch "^(config|db|functions|schema)\.(php|sql)$">
+    Require all denied
+</FilesMatch>
+
+# Sitemap
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# /en/ or /es/  -> blog index
+RewriteRule ^(en|es)/?$ index.php?lang=$1 [L,QSA]
+
+# /en/my-post/ -> single post
+RewriteRule ^(en|es)/([a-z0-9-]+)/?$ post.php?lang=$1&slug=$2 [L,QSA]
