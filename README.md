@@ -26,8 +26,23 @@ Simple bilingual (EN/ES) SEO-friendly blog with a minimal CMS. Plain PHP, vanill
 
 Log in at `/admin/login.php`. Each post holds both languages in one row
 (title, slug, SEO title/description, excerpt and HTML content per language),
-plus an optional cover image URL, draft/published status and a publish date.
+plus an optional cover image, draft/published status and a publish date.
 Slugs auto-generate from titles; SEO fields show live character counters.
+
+### Image uploads
+
+Images (JPG/PNG/GIF/WebP, max 5 MB) can be uploaded from the post editor:
+
+- **Cover image** — "Upload image…" below the cover field uploads the file
+  and fills in its URL (a plain external URL still works too).
+- **Inline images** — "Insert image…" below each content textarea uploads
+  the file and inserts an `<img>` tag at the cursor, leaving the caret
+  inside `alt=""` so you can type the description right away.
+
+Files land in `/uploads/YYYY/MM/` with a sanitized, unique filename. Make
+sure the `uploads/` directory is writable by the web server. Uploads are
+validated server-side (real image check, type whitelist, size limit) and the
+directory's `.htaccess` blocks script execution.
 
 ## SEO features
 

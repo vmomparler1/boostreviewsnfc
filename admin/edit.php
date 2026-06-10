@@ -89,7 +89,7 @@ $publishedValue = $post['published_at'] ? date('Y-m-d\TH:i', strtotime($post['pu
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title><?= $post['id'] ? 'Edit post' : 'New post' ?> — <?= e(SITE_NAME) ?> Admin</title>
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=<?= filemtime(dirname(__DIR__) . '/assets/style.css') ?>">
 </head>
 <body class="admin">
 <main class="container">
@@ -131,14 +131,23 @@ $publishedValue = $post['published_at'] ? date('Y-m-d\TH:i', strtotime($post['pu
         <div class="field">
           <label for="content_<?= $l ?>">Content (HTML allowed)</label>
           <textarea class="content" id="content_<?= $l ?>" name="content_<?= $l ?>"><?= e($post['content_' . $l]) ?></textarea>
+          <div class="upload-row">
+            <button type="button" class="btn secondary btn-small" data-insert-image="content_<?= $l ?>">Insert image…</button>
+            <span class="upload-status" data-status-for="content_<?= $l ?>"></span>
+          </div>
         </div>
       </section>
       <?php endforeach; ?>
     </div>
 
     <div class="field" style="margin-top:1.5rem;">
-      <label for="cover_image">Cover image URL (optional)</label>
-      <input type="text" id="cover_image" name="cover_image" value="<?= e($post['cover_image']) ?>" placeholder="https://...">
+      <label for="cover_image">Cover image (optional)</label>
+      <input type="text" id="cover_image" name="cover_image" value="<?= e($post['cover_image']) ?>" placeholder="https://... or upload below">
+      <div class="upload-row">
+        <button type="button" class="btn secondary btn-small" data-upload-to="cover_image">Upload image…</button>
+        <span class="upload-status" data-status-for="cover_image"></span>
+      </div>
+      <img id="cover_image_preview" class="cover-preview" src="<?= e($post['cover_image']) ?>" alt="" <?= $post['cover_image'] ? '' : 'hidden' ?>>
     </div>
 
     <div class="field">
@@ -171,6 +180,6 @@ $publishedValue = $post['published_at'] ? date('Y-m-d\TH:i', strtotime($post['pu
   </form>
   <?php endif; ?>
 </main>
-<script src="/assets/admin.js"></script>
+<script src="/assets/admin.js?v=<?= filemtime(dirname(__DIR__) . '/assets/admin.js') ?>"></script>
 </body>
 </html>

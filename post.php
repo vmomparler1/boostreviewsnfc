@@ -27,7 +27,7 @@ $page_title = ($post['meta_title_' . $lang] ?: $title) . ' — ' . SITE_NAME;
 $meta_desc  = $post['meta_desc_' . $lang] ?: (string)$post['excerpt_' . $lang];
 $canonical  = post_url($post, $lang);
 $og_type    = 'article';
-$og_image   = $post['cover_image'] ?: null;
+$og_image   = $post['cover_image'] ? absolute_url($post['cover_image']) : null;
 $alternates = [];
 foreach (LANGS as $l) {
     $alternates[$l] = post_url($post, $l);

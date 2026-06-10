@@ -63,6 +63,12 @@ function post_url(array $post, string $lang): string
     return BASE_URL . '/' . $lang . '/' . $post['slug_' . $lang] . '/';
 }
 
+/** Turn a site-relative URL (e.g. /uploads/...) into an absolute one */
+function absolute_url(string $url): string
+{
+    return preg_match('#^https?://#i', $url) ? $url : BASE_URL . $url;
+}
+
 /** Format a date for display in the current language */
 function format_date(?string $ts, string $lang): string
 {
